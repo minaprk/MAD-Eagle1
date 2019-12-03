@@ -1,10 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html"%}
+
+<!-- {%block content%}
+<br>
+<form  method="post">
+  {% csrf_token %}
+  {%if user_form%}
+  {{user_form.as_p}}
+  <input type="submit" name="" value="Register">
+  {%endif%}
+</form> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.8.2/forge.all.min.js"></script>
+
+   <script type="text/Javascript">
+       function generateHash()
+ {
+           var pass = document.getElementById('id_pass').value;
+           var rep_pass = document.getElementById('id_rep_pass').value;
+           var md = forge.md.sha256.create();
+           md.start();
+           md.update(pass);
+           var hashPass = md.digest().toHex();
+           md.start();
+           md.update(rep_pass)
+           var hashRepPass = md.digest().toHex();
+           document.getElementById("id_pass").value = hashPass;
+           document.getElementById("id_rep_pass").value = hashRepPass;
+       }
+   </script>
+
+{%if user%}
+<p>{{user}}</p>
+{%endif%}
+<center><form class="" action="{% url 'appl:registration' %}" method="post">
+  {% csrf_token%}
+  <table border=1>
+  <tr>
+    <td>Your login:</td> <td><input type="text" name="login" value="" placeholder="Login"></td>
+  </tr>
+  <tr>
+    <td>Your name: </td> <td><input type="text" name="userName" value="" placeholder="Name"></td>
+  </tr>
+    <tr>
+    <td>Your Password: </td>
+    <td><input type="password" name="password" id = "id_pass"
+        value = "" placeholder="PASSWD" ></td>
+    </tr>
+    <tr>
+    <td>Repeat Password: </td>
+    <td><input type="password" name="rep_password" id = "id_rep_pass"
+       value="" placeholder="PASSWD" ></td>
+    </tr>
+  </table>
+  <p><input type="submit" name="" value="Register" onclick="generateHash()"></p>
+</form></center>
+{% endblock %}
