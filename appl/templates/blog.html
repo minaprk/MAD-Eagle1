@@ -1,12 +1,9 @@
  {%extends 'base.html' %}
 <%load static%>
- {%block title%}
-    MAD EAGLE
-    {%endblock%}
+ {%block title%}MAD EAGLE{%endblock%}
 
 {% block content %}
-
-    <section class="breadcrumb-area section-padding-80">
+<section class="breadcrumb-area section-padding-80">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -23,46 +20,41 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Area End -->
-
-    <!-- News Area Start -->
-    <section class="akame-news-area section-padding-0-80">
+ <section class="akame-news-area section-padding-0-80">
         <div class="container">
-            <div class="row mx-sm-n4 akame-blog-masonary">
+            <sec class="row mx-sm-n4 akame-blog-masonary">
 
                 <!-- Single Blog Item -->
                 <div class="col-12 col-sm-6 col-lg-4 px-4 akame-blog-masonary-item mb-50 wow fadeInUp" data-wow-delay="200ms">
                     <!-- Single Post Area -->
+                    {% for post in posts %}
                     <div class="single-post-area">
-                        <div class="post-thumbnail">
-                            <a href="single-blog.html"><img src="img/bg-img/33.jpg" alt=""></a>
+                        
+                        
+
+                        <div class="post-content">
+                            <a href="#" class="post-title">{{ post.article_title }}</a>
+                            <div class="post-meta">
+                                <a href="#" class="post-date"><i class="icon_clock_alt"></i> {{ post.pub_date }}</a>
+    
+                            </div>
+                            <p>{{ post.article_text|truncatewords:10}}</p>
                         </div>
-                        {% for a in latest_articles_list %}
-                            <div class="post-content">
-                                <a href="{% url 'detail' a.id %}" class="post-title">{{a.article_title}}</a>
-                                 <div class="post-meta">
-                                     <a href="#" class="post-date"><i class="icon_clock_alt"></i> {{a.pub_date}}</a>
-                             </div>
-                            <p></p>
-                        {% endfor %}
+                        <div class="post-thumbnail">
+                            <a href="{%url 'appl:detail' pk=post.pk%}"><img src="{{ post.image.url }}" alt=""></a>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
+            </sec>
+        </div>
 
-
-
-            <div class="row">
+        <div class="row">
                 <div class="col-12 text-center">
-                    <a href="#" class="btn akame-btn active mt-30">Load More</a>
+                    <a href="#" class="btn akame-btn active mt-30">Next page</a>
                 </div>
             </div>
-        </div>
-        </div>
-    </section>
-    <!-- News Area End -->
+ </section>
 
-    <!-- Border -->
-    <div class="container">
-        <div class="border-top"></div>
-    </div>
+
  {%endblock%}

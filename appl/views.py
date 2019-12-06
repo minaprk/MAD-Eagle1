@@ -3,9 +3,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django import forms
+from django.utils import timezone
 
 from appl.forms import LoginForm, UserForm, SelectionForm
-from appl.models import Article, Customer, Appointment
+from appl.models import Article, Customer, Appointment, Service
 
 
 def index(request):
@@ -22,6 +26,25 @@ def service(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def blog(request):
+    posts = Article.objects.filter(pub_date__lte=timezone.now()).order_by('pub_date')
+    return render(request, 'blog.html', {'posts': posts})
+
+
+def detail(request, pk):
+    post = Article.objects.get(pk=pk)
+    return render(request, 'post_detail.html', {'post': post})
+
+
+def contact(request):
+    return render(request, 'contact.html')
+
+
+
+def boooking(request):
+    return render(request, 'booking.html')
+
 
 
 def register(request):
@@ -164,21 +187,3 @@ def booking(request):
                 x = x | a
         form.fields["appointment"].queryset = x
         return render(request, 'booking.html', {'form': form})
-
-
-def blog(request):
-    latest_articles_list = Article.objects.order_by('-pub_date')[:5]
-    return render(request, 'blog.html', {'latest_articles_list': latest_articles_list})
-
-
-def detail(request, article_id):
-    try:
-        a = Article.objects.get(id=article_id)
-    except:
-        raise Http404("Not found!")
-
-    return render(request, 'detail.html', {'article': a})
-
-
-def contact(request):
-    return render(request, 'contact.html')

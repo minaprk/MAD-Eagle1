@@ -7,11 +7,11 @@
     {% load static %}
 
     <!-- Title -->
-    <title>{%block title%}MAD EAGLE{%endblock%} </title>>
+    <title>{%block title%}MAD EAGLE{%endblock%} </title>
 
 
     <!-- Favicon -->
-
+<link rel="icon" href="{%static 'img/core-img/favicon.ico'%}">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -80,6 +80,7 @@
                                     <li class="active"><a href="{%url 'appl:index'%}">Home</a></li>
                                     <li><a href="{%url 'appl:portfolio'%}">Portfolio</a></li>
                                     <li><a href="{%url 'appl:service'%}">Services</a></li>
+                                    <li><a href="{%url 'appl:booking'%}">Booking</a></li>
                                     <li><a href="{%url 'appl:about'%}">About Us</a></li>
                                     <li><a href="{%url 'appl:blog'%}">Blog</a></li>
                                     <li><a href="{%url 'appl:contact'%}">Contact</a></li>
@@ -92,7 +93,7 @@
 
                                 <!-- Book Icon -->
                                 <div class="book-now-btn ml-5 mt-4 mt-lg-0 ml-md-4">
-                                    <a href="#" class="btn akame-btn">Book Now</a>
+                                    <a href="{%url 'appl:booking'%}" class="btn akame-btn">Book Now</a>
                                 </div>
                             </div>
                             <!-- Nav End -->
@@ -117,7 +118,7 @@
                         <!-- Footer Logo -->
                         <a href="#" class="footer-logo"><img src="img/core-img/logo.png" alt=""></a>
 
-                        <p class="mb-30">We would love to serve you and let you enjoy your time. </p>
+                        <p class="mb-30">Beauty salon "MAD EAGLE" is always glad to its old and new friends! </p>
 
                         <!-- Copywrite Text -->
                         <div class="copywrite-text">
